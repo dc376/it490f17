@@ -1,44 +1,28 @@
 <?php
+require_once('path.inc');
+require_once('get_host_info.inc');
+require_once('rabbitMQLib.inc');
 
-//include('get_host_info.inc');
-//include('path.inc');
-//include('rabbitMQLib.inc');
-//include('testRabbitMQServer.php');
-require_once('login.php.inc');
-
-if(!isset($_POST))
+if (!isset($_POST))
 {
 	$msg = "NO POST MESSAGE SET, POLITELY FUCK OFF";
 	echo json_encode($msg);
 	exit(0);
-
 }
-
-//$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+$client = new rabbitMQClient("testRabbitMQ.ini","testServer");
 $request = $_POST;
-//var_dump($request);
-
-//echo"hello";
-//$response = "jigga";
-$login = new logindb();
-$req = array();
-$req['username'] = $request["uname"];
-$req['password'] = $request["pword"];
-$output = $login->validateLogin($req['username'] = $request["uname"],$req['password'] = $request["pword"]);
-
-if($output)
+switch ($request["type"])
 {
-	echo "login successful".PHP_EOL;
-
-}
-else
-{
-	echo "login failed".PHP_EOL;
+	case "login": {
+		$req=array();
+		$req['type']="login";
+		$req['username']=$request["uname"];
+		$req['password']=$request["pword"];
+		$response = $client->send_request($req);
+		break;
+	}
 	
 }
 echo json_encode($response);
 exit(0);
-
-
-
 ?>

@@ -3,13 +3,18 @@
 require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
+require_once('login.php.inc');
+
 
 function doLogin($username,$password)
 {
-    // lookup username in databas
-    // check password
-    return true;
-    //return false if not valid
+    $login = new logindb();
+    $output = $login->validateLogin($username,$password);
+	if($output)
+		{
+			echo "success";
+		}
+	return $output;
 }
 
 function requestProcessor($request)
