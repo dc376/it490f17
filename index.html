@@ -68,11 +68,18 @@ function submitLogin()
 	document.getElementById("output").innerHTML = "username: " + uname + "<p>password: "+pword+"<p>";	
 	sendLoginRequest(uname,pword);
 	return 0;
+	
 }
+
 function HandleLoginResponse(response)
 {
 	var text = response;
 	document.getElementById("output").innerHTML = "response: "+text+"<p>";
+	if( response == 1)
+		{
+			redirect();
+		}
+	
 }
 function sendLoginRequest(username,password)
 {
@@ -88,6 +95,12 @@ function sendLoginRequest(username,password)
 		}		
 	}
 	request.send("type=login&uname="+username+"&pword="+password);
+	
+}
+function redirect(){
+window.open("homepage.html");
+return false;
+
 }
 </script>
   </body>
