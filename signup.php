@@ -11,8 +11,26 @@ $success = $conn->query($query);
  
 
 
-if ($success){
+
+function redirect($message, $url)
+{
+	echo $message;
+	header ("refresh:2; url=$url");
+	exit();
+}
+
+if ($success)
+{
 	echo 'User Successfully Registered.';
+	$message = "Redirecting to homepage.";
+	$url = "https://127.0.0.1/homepage.html";
+	redirect($message, $url);
+}
+
+else
+{
+	echo "Invalid registration, duplicate information provided.";
+
 }
 
 

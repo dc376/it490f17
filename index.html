@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Signin Template for Bootstrap</title>
+    <title>Kehoe's Bros Betting!</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
     <div class="container">
 	
       <form class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading">Existing User Sign In</h2>
         <label for="inputName" class="sr-only">Username</label>
         <input type="username" id="inputName" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
@@ -34,8 +34,9 @@
             <input type="checkbox" value="remember-me"> Remember me
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="button" onclick="submitLogin()">Sign in</button>
-	<a href="signup.html">Sign up? Click here</a>
+        <button class="btn btn-lg btn-primary btn-block" type="button" onclick="submitLogin()">Sign In</button>
+	<button class="btn btn-lg btn-primary btn-block" type="button" onclick="signUp()">New user? Sign Up!</button>
+
       </form>
 	
     </div> <!-- /container -->
@@ -47,6 +48,19 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
 	<script>
+
+function signUp()
+{
+	var iMyWidth;
+	var iMyHeight;	
+	iMyWidth = (window.screen.width / 2) - (75 + 10);
+	iMyHeight = (window.screen.height / 2) - (100 + 50);
+	var win2 = window.open("signup.html", "Window2", "status=no, height=570 ,width=450, resizable = yes, left="+ iMyWidth + ",top=" + iMyHeight + ",screenX=" + iMyWidth + ",screenY=" + iMyHeight +",toolbar=no,menubar=no,scrollsbars=no,location=no,directories=no");
+
+win2.focus();
+
+}
+
 function submitLogin()
 {
 	var uname = document.getElementById("inputName").value;
