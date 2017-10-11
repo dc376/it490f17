@@ -19,7 +19,7 @@
   <body>
 	
     <div id = "output">
-	status<p>
+	<p>
     </div>
     <div class="container">
 	
@@ -77,9 +77,15 @@ function HandleLoginResponse(response)
 	document.getElementById("output").innerHTML = "response: "+text+"<p>";
 	if( response == 1)
 		{
+			alert("Login successful, redirecting to homepage.");
 			redirect();
 		}
-	
+	if (response == 0)
+		{
+			alert("Login unsuccessful, please try again.");
+			redirectWrong();
+		}
+			
 }
 function sendLoginRequest(username,password)
 {
@@ -97,8 +103,17 @@ function sendLoginRequest(username,password)
 	request.send("type=login&uname="+username+"&pword="+password);
 	
 }
+
+
 function redirect(){
-window.open("homepage.html");
+window.location.replace("homepage.html");
+return false;
+
+}
+
+
+function redirectWrong(){
+window.location.replace("index.html");
 return false;
 
 }
