@@ -55,7 +55,7 @@ function signUp()
 	var iMyHeight;	
 	iMyWidth = (window.screen.width / 2) - (75 + 10);
 	iMyHeight = (window.screen.height / 2) - (100 + 50);
-	var win2 = window.open("signup.html", "Window2", "status=no, height=570 ,width=450, resizable = yes, left="+ iMyWidth + ",top=" + iMyHeight + ",screenX=" + iMyWidth + ",screenY=" + iMyHeight +",toolbar=no,menubar=no,scrollsbars=no,location=no,directories=no");
+	var win2 = window.open("signup.html", "Window2", "status=no, height=520 ,width=450, resizable = yes, left="+ iMyWidth + ",top=" + iMyHeight + ",screenX=" + iMyWidth + ",screenY=" + iMyHeight +",toolbar=no,menubar=no,scrollsbars=no,location=no,directories=no");
 
 win2.focus();
 
@@ -65,7 +65,7 @@ function submitLogin()
 {
 	var uname = document.getElementById("inputName").value;
 	var pword = document.getElementById("inputPassword").value;
-	document.getElementById("output").innerHTML = "username: " + uname + "<p>password: "+pword+"<p>";	
+	document.getElementById("output");	
 	sendLoginRequest(uname,pword);
 	return 0;
 	
@@ -74,7 +74,7 @@ function submitLogin()
 function HandleLoginResponse(response)
 {
 	var text = response;
-	document.getElementById("output").innerHTML = "response: "+text+"<p>";
+	document.getElementById("output").innerHTML;
 	if( response == 1)
 		{
 			alert("Login successful, redirecting to homepage.");
