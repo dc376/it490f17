@@ -72,7 +72,7 @@ if($qbResult == $userQbResult)
 $amount = (.33 * $betResult) + $userBalanceResult;
 $qbBetWon = "update users set balance = '$amount' where screenname = '$userResult'";
 $success = $db2->query($qbBetWon);
-echo " you hit on qb!" . "\n";
+echo "your choice " . $userQbResult . " won!<br><br>";
 
 }
 if($qbResult != $userQbResult){
@@ -83,7 +83,9 @@ $userBalanceResult = $userBalanceQuery->fetch_object()->var;
 $amount = $userBalanceResult - (.33 * $betResult);
 $qbBetLost = "update users set balance = '$amount' where screenname = '$userResult'";
 $success = $db2->query($qbBetLost);
-echo "you lost on qb" . "\n";
+echo "\n" . "your choice " . $userQbResult . " did not win<br><br>";
+//code to track a win, put it in a database that just has an INT for a number to add/subtract to it.
+
 
 }
 
@@ -99,7 +101,7 @@ $amount = (.33 * $betResult) + $userBalanceResult;
 $rbBetWon = "update users set balance = '$amount' where screenname = '$userResult'";
 $success = $db2->query($rbBetWon);
 
-echo "you hit on rb!" . "\n";
+echo ".\n" . "your choice " . $userRbResult . " won!<br><br>";
 
 }
 
@@ -111,7 +113,7 @@ $userBalanceResult = $userBalanceQuery->fetch_object()->var;
 $amount = $userBalanceResult - (.33 * $betResult);
 $rbBetLost = "update users set balance = '$amount' where screenname = '$userResult'";
 $success = $db2->query($rbBetLost);
-echo "you lost on rb" . "\n";
+echo "\n" . "your choice " . $userRbResult . " did not win<br><br>";
 }
 
 
@@ -127,7 +129,7 @@ $amount = (.33 * $betResult) + $userBalanceResult;
 $wrBetWon = "update users set balance = '$amount' where screenname = '$userResult'";
 $success = $db2->query($wrBetWon);
 
-echo "you hit on wr!" . "\n";
+echo "\n" . "your choice " . $userWrResult . " won<br><br>";
 
 }
 if($wrResult != $userWrResult){
@@ -138,7 +140,7 @@ $userBalanceResult = $userBalanceQuery->fetch_object()->var;
 $amount = $userBalanceResult - (.33 * $betResult);
 $wrBetLost = "update users set balance = '$amount' where screenname = '$userResult'";
 $success = $db2->query($wrBetLost);
-echo "you lost on wr" . "\n";
+echo "\n" . "your choice " . $userWrResult . " did not win<br><br>";
 }
 
 
@@ -146,7 +148,7 @@ $getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userRes
 $userBalanceQuery = mysqli_query($db2, $getUserBalance);
 $userBalanceResult = $userBalanceQuery->fetch_object()->var;
 
-echo $userResult . " your new balance is " . $userBalanceResult . "\n"; 
+echo "\n" . $userResult . " your new balance is " . $userBalanceResult; 
 
 
 
