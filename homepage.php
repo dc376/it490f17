@@ -5,41 +5,97 @@
 <style>
 body {margin: 0;}
 #css1{
-  background-image:url("http://www.publicdomainpictures.net/pictures/190000/velka/black-background-1468370534d5s.jpg");
+  background-color: black;
   background-position: right bottom;
   background-repeat: repeat;
-  padding: 5px;
+  padding: .5px;
 }
+.topnav{
+    overflow: hidden;
+    background-color:darkgrey;
+    }
+.topnav a{
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 10px;
+    }
+.topnav a:hover{
+    background-color: lightblue;
+    color: white;
+}
+.topnav a.active{
+    background-color: #ee2211;
+    color: red;
+}   
+.box1{
+    position: relative;
+    margin: auto;
+    float: center;
+    width: 400px;
+    font-family:"georgia";
+    height: 100px;
+    background-color: pink;
+    text-align: left;
+    padding-left: .5cm;
+    padding-top: .05cm;
+    padding-bottom: .8cm;
+}
+    
 </style>
-<center>
-<div id ="css1">
 
-<h2><font face="orbe" size="15" color="white">Kehoe's Bros Betting</font></h2>
+</head>
 
-<?php
-session_start();
-$un = $REQUEST['username'];
-//echo "<div style='text-align:right; color:#ffffff'>Hello," .$un ." <br>Current Balence . placeholder amount 50</div>";
-echo "<div style='text-align:right; color:#ffffff'>Current Balence . placeholder amount 50</div>";
-?>
-<form action="deposit.php">
-    <input type="submit" value="Deposit $$" style="float: right;">
-</form>
+<body>
+<div id = "css1">
+<h3><font face="georgia" size="5" color="white">Kehoe's Bros Betting</font></h3>
+    <div class="topnav" id="firstTopNav">
+        <a href="homepage.php">HOME</a>
+        <a href="deposit.php">DEPOSIT</a>
+        <a href="about.php">ABOUT</a>
+        <a href="compareResults.php">RESULTS</a>
+    </div>
 </div>
-<script>
-if (typeof(Storage)!=="undefined")
-{
-//store
-//retrieve
-    document.getElementById("result").innerHTML = sessionStorage.getItem("username");
-}
-else{
-    document.getElementById("result").innerHTML="Sorry, your browser does not support Web Storage...";
-}
-</script>
+</body>
+</style>
 
-</center>
 <!--This is for SEARCH BAR!-->
+
+</head>
+<!--<body background = "https://www.bookmakers.bet/wp-content/uploads/2016/12/Fantasy-Football-NFL-Images-2014.jpg">-->
+<body>
+<center>
+<style>
+    { margin: 0; padding: 0; }
+    html {
+        background: url('https://i.pinimg.com/originals/2c/ba/0c/2cba0cb95b6bfdad2a7699490309d8ff.jpg') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+</style>
+
+<style>
+
+.div1, .div2, .div3{
+ 
+    position: relative;
+    margin: 1%;
+    float: center;
+    width: 23%;
+    height: 60px;
+    background-color: lightgrey;
+}
+
+</style>
+<br>
+<body>
+<center>
+
 <center>
 <br>
 <form action="team.php" method="get">
@@ -83,37 +139,7 @@ else{
     display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;"/>
 </center>
 </form>
-</head>
-<!--<body background = "https://www.bookmakers.bet/wp-content/uploads/2016/12/Fantasy-Football-NFL-Images-2014.jpg">-->
-<body>
-<center>
-<style>
-    { margin: 0; padding: 0; }
-    html {
-        background: url('https://i.pinimg.com/originals/2c/ba/0c/2cba0cb95b6bfdad2a7699490309d8ff.jpg') no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-    }
-</style>
 
-<style>
-
-.div1, .div2, .div3{
- 
-    position: relative;
-    margin: 1%;
-    float: center;
-    width: 23%;
-    height: 60px;
-    background-color: lightgrey;
-}
-
-</style>
-<br>
-<body>
-<center>
 <div class="div1">
 <center>
 <form action="bet.php" method="get">
@@ -416,7 +442,6 @@ else{
 <br>
 <br>
 <center>
-<a href="compareResults.php"> Compare Results</a>
 </center>
 <br>
 </body>
