@@ -75,73 +75,89 @@ $success = $db2->query($qbBetWon);
 echo "your choice " . $userQbResult . " won!<br><br>";
 
 }
-if($qbResult != $userQbResult){
-$getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
-$userBalanceQuery = mysqli_query($db2, $getUserBalance);
-$userBalanceResult = $userBalanceQuery->fetch_object()->var;
+//check if miss on qb
+if($qbResult != $userQbResult)
+    {
+        $getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
+        $userBalanceQuery = mysqli_query($db2, $getUserBalance);
+        $userBalanceResult = $userBalanceQuery->fetch_object()->var;
 
-$amount = $userBalanceResult - (.33 * $betResult);
-$qbBetLost = "update users set balance = '$amount' where screenname = '$userResult'";
-$success = $db2->query($qbBetLost);
-echo "\n" . "your choice " . $userQbResult . " did not win<br><br>";
+        $amount = $userBalanceResult - (.33 * $betResult);
+        $qbBetLost = "update users set balance = '$amount' where screenname = '$userResult'";
+        $success = $db2->query($qbBetLost);
+        echo "\n" . "your choice " . $userQbResult . " did not win<br><br>";
 //code to track a win, put it in a database that just has an INT for a number to add/subtract to it.
+        $getCurrentYTD = "SELECT yearly_total as var FROM admin";
+        $currentYTDQuery = mysqli_query($db2,$getCurrenYTD);
+        $currentYTDResult = $currentYTDQuery->fetch_object()->var;
+        
+        
+        $profitGain = (.33 * $betResult);
+        $updateProfitYTD = "update admin set yearly_total = '$profitGain' where screenname = 'admin'";
+        $updateProfitWT = "update admin set weekly_total = '$profitGain' where screenname = 'admin'";
+        $success1 = $db2->query($updateProfitYTD);
+        $success2 = $db2->query($updateProfitWT);
 
-
-}
+    }
 
 
 //checks if hit on RB
 if($rbResult == $userRbResult)
-{
-$getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
-$userBalanceQuery = mysqli_query($db2, $getUserBalance);
-$userBalanceResult = $userBalanceQuery->fetch_object()->var;
+    {
+        $getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
+        $userBalanceQuery = mysqli_query($db2, $getUserBalance);
+        $userBalanceResult = $userBalanceQuery->fetch_object()->var;
 
-$amount = (.33 * $betResult) + $userBalanceResult;
-$rbBetWon = "update users set balance = '$amount' where screenname = '$userResult'";
-$success = $db2->query($rbBetWon);
+        $amount = (.33 * $betResult) + $userBalanceResult;
+        $rbBetWon = "update users set balance = '$amount' where screenname = '$userResult'";
+        $success = $db2->query($rbBetWon);
 
-echo ".\n" . "your choice " . $userRbResult . " won!<br><br>";
+        echo ".\n" . "your choice " . $userRbResult . " won!<br><br>";
 
-}
+    }
+//check if miss on RB
+if($rbResult != $userRbResult)
+    {
+        $getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
+        $userBalanceQuery = mysqli_query($db2, $getUserBalance);
+        $userBalanceResult = $userBalanceQuery->fetch_object()->var;
 
-if($rbResult != $userRbResult){
-$getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
-$userBalanceQuery = mysqli_query($db2, $getUserBalance);
-$userBalanceResult = $userBalanceQuery->fetch_object()->var;
-
-$amount = $userBalanceResult - (.33 * $betResult);
-$rbBetLost = "update users set balance = '$amount' where screenname = '$userResult'";
-$success = $db2->query($rbBetLost);
-echo "\n" . "your choice " . $userRbResult . " did not win<br><br>";
-}
+        $amount = $userBalanceResult - (.33 * $betResult);
+        $rbBetLost = "update users set balance = '$amount' where screenname = '$userResult'";
+        $success = $db2->query($rbBetLost);
+        
+        echo "\n" . "your choice " . $userRbResult . " did not win<br><br>";
+    }
 
 
 
 //checks if hit on WR
 if($wrResult == $userWrResult)
-{
-$getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
-$userBalanceQuery = mysqli_query($db2, $getUserBalance);
-$userBalanceResult = $userBalanceQuery->fetch_object()->var;
+    {
+        $getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
+        $userBalanceQuery = mysqli_query($db2, $getUserBalance);
+        $userBalanceResult = $userBalanceQuery->fetch_object()->var;
 
-$amount = (.33 * $betResult) + $userBalanceResult;
-$wrBetWon = "update users set balance = '$amount' where screenname = '$userResult'";
-$success = $db2->query($wrBetWon);
+        $amount = (.33 * $betResult) + $userBalanceResult;
+        $wrBetWon = "update users set balance = '$amount' where screenname = '$userResult'";
+        $success = $db2->query($wrBetWon);
 
-echo "\n" . "your choice " . $userWrResult . " won<br><br>";
+        echo "\n" . "your choice " . $userWrResult . " won<br><br>";
 
-}
-if($wrResult != $userWrResult){
-$getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
-$userBalanceQuery = mysqli_query($db2, $getUserBalance);
-$userBalanceResult = $userBalanceQuery->fetch_object()->var;
+    }
+    //check if miss on WR
+if($wrResult != $userWrResult)
+    {
+        $getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
+        $userBalanceQuery = mysqli_query($db2, $getUserBalance);
+        $userBalanceResult = $userBalanceQuery->fetch_object()->var;
 
-$amount = $userBalanceResult - (.33 * $betResult);
-$wrBetLost = "update users set balance = '$amount' where screenname = '$userResult'";
-$success = $db2->query($wrBetLost);
-echo "\n" . "your choice " . $userWrResult . " did not win<br><br>";
-}
+        $amount = $userBalanceResult - (.33 * $betResult);
+        $wrBetLost = "update users set balance = '$amount' where screenname = '$userResult'";
+        $success = $db2->query($wrBetLost);
+        
+        echo "\n" . "your choice " . $userWrResult . " did not win<br><br>";
+    }
 
 
 $getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
