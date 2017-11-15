@@ -19,7 +19,7 @@
   <body>
 	
     <div id = "output">
-	status<p>
+	<p>
     </div>
     <div class="container">
 	
@@ -48,38 +48,39 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
 	<script>
-
 function signUp()
 {
 	var iMyWidth;
 	var iMyHeight;	
 	iMyWidth = (window.screen.width / 2) - (75 + 10);
 	iMyHeight = (window.screen.height / 2) - (100 + 50);
-	var win2 = window.open("signup.html", "Window2", "status=no, height=570 ,width=450, resizable = yes, left="+ iMyWidth + ",top=" + iMyHeight + ",screenX=" + iMyWidth + ",screenY=" + iMyHeight +",toolbar=no,menubar=no,scrollsbars=no,location=no,directories=no");
-
+	var win2 = window.open("signup.html", "Window2", "status=no, height=520 ,width=450, resizable = yes, left="+ iMyWidth + ",top=" + iMyHeight + ",screenX=" + iMyWidth + ",screenY=" + iMyHeight +",toolbar=no,menubar=no,scrollsbars=no,location=no,directories=no");
 win2.focus();
-
 }
-
 function submitLogin()
 {
 	var uname = document.getElementById("inputName").value;
 	var pword = document.getElementById("inputPassword").value;
-	document.getElementById("output").innerHTML = "username: " + uname + "<p>password: "+pword+"<p>";	
+	document.getElementById("output");	
 	sendLoginRequest(uname,pword);
 	return 0;
 	
 }
-
 function HandleLoginResponse(response)
 {
 	var text = response;
-	document.getElementById("output").innerHTML = "response: "+text+"<p>";
+	document.getElementById("output").innerHTML;
 	if( response == 1)
 		{
+			alert("Login successful, redirecting to homepage.");
 			redirect();
 		}
-	
+	if (response == 0)
+		{
+			alert("Login unsuccessful, please try again.");
+			redirectWrong();
+		}
+			
 }
 function sendLoginRequest(username,password)
 {
@@ -100,7 +101,10 @@ function sendLoginRequest(username,password)
 function redirect(){
 window.location.replace("homepage.html");
 return false;
-
+}
+function redirectWrong(){
+window.location.replace("index.html");
+return false;
 }
 </script>
   </body>
