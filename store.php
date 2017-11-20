@@ -3,12 +3,12 @@
 <?php
 
 
-require 'database.php';
+require '/home/dean/git/jawn/database.php';
 
 
 //read json file that was pulled using tester.php(json format)
 
-$json = file_get_contents('output2.txt');
+$json = file_get_contents('/home/dean/git/jawnoutput2.txt');
 
 //decode json
 
