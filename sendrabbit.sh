@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sshpass -p deploy scp /home/deploy/backups/rabbit-v1/host.ini /home/deploy/backups/rabbit-v1/local.ini /home/deploy/backups/rabbit-v1/path.inc /home/deploy/backups/rabbit-v1/testRabbitMQClient.php /home/deploy/backups/rabbit-v1/testRabbitMQ.ini /home/deploy/backups/rabbit-v1/testRabbitMQServer.conf /home/deploy/backups/rabbit-v1/testRabbitMQServer.monit /home/deploy/backups/rabbit-v1/testRabbitMQServer.php /home/deploy/backups/rabbit-v1/get_host_info.inc /home/deploy/backups/rabbit-v1/rabbitMQLib.inc /home/deploy/backups/rabbit-v1/login.php.inc 192.168.1.119:/home/dean/git/rabbitmq
