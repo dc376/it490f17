@@ -3,7 +3,7 @@
 
 
 //connects to stats DB and stores the winning teams into an array
-$sql = new mysqli('192.168.1.120', 'dean','dean','stats');
+$sql = new mysqli('127.0.0.1', 'root','chris','stats');
 if (mysqli_connect_errno()) {
   printf("Connect failed: %s\n", mysqli_connect_error());
   exit;
@@ -51,6 +51,8 @@ $getBet = "SELECT bet_amount AS var from user_bballbet WHERE screenname = 'dc376
 $betQuery = mysqli_query($sql,$getBet);
 $betResult = $betQuery->fetch_object()->var;
 
+//echo "the bet amount is".$betResult;
+
 
    
 $result->close();
@@ -59,9 +61,9 @@ $sql->close();
 
 
 //opens up DB for user accnts
-$hostname = "192.168.1.120";
-$username = "dean";
-$password = "dean";
+$hostname = "127.0.0.1";
+$username = "root";
+$password = "chris";
 $dbname = "login";
 $db2 = mysqli_connect($hostname, $username, $password,$dbname);
 $dbselect = mysqli_select_db($db2, "login");
@@ -70,111 +72,112 @@ $dbselect = mysqli_select_db($db2, "login");
 $getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
 $userBalanceQuery = mysqli_query($db2, $getUserBalance);
 $userBalanceResult = $userBalanceQuery->fetch_object()->var;
-//echo $userBalanceResult;
 
 
-//for loop to iterate thru the array created above
+$winners = [];
 
-for($i=0; $i<8; $i++)
+foreach($rows as $value)
 {
-
-//first pick win
-
-    //checks to see if first pick 
-if($rows[0] != $final1)
+ 
+if($value[0] == $final1)
     {
         $getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
         $userBalanceQuery = mysqli_query($db2, $getUserBalance);
         $userBalanceResult = $userBalanceQuery->fetch_object()->var;
-
-        $amount = $userBalanceResult - (.33 * $betResult);
-        $firstPickLost = "update users set balance = '$amount' where screenname = '$userResult'";
-        $success = $db2->query($firstPickLost);
-        
-        echo "\n" . "your choice " . $final1 . " did not win<br><br>";
-        
+	//print_r($value[0]);
+	array_push($winners, $final1);   
         
     }
-elseif($rows[0] == $final1)
 
-    {
-        $amount = (.33 * $betResult) + $userBalanceResult;
-        $firstPickWon = "update users set balance = '$amount' where screenname = '$userResult'";
-        $success = $db2->query($firstPickWon);
-        echo "your choice " . $final1 . " won!<br><br>";
-        
-        
-    }
-    
- //}   
 }
-/*
+
+
 foreach($rows as $value)
 {
 $i++;
-//2nd pick win
-if($value[$i] == $final2)
+
+//first pick win
+
+//checks to see if first pick 
+if($value[0] == $final2)
     {
         $getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
         $userBalanceQuery = mysqli_query($db2, $getUserBalance);
         $userBalanceResult = $userBalanceQuery->fetch_object()->var;
-
-        $amount = (.33 * $betResult) + $userBalanceResult;
-        $secondPickWon = "update users set balance = '$amount' where screenname = '$userResult'";
-        $success = $db2->query($secondPickWon);
-
-        echo "\n" . "your choice " . $final2 . " won<br><br>";
-        break;
-
+	array_push($winners, $final2);
+ 
     }
-//2nd pick loss
-if($value[$i] != $final2)
-    {
-        $getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
-        $userBalanceQuery = mysqli_query($db2, $getUserBalance);
-        $userBalanceResult = $userBalanceQuery->fetch_object()->var;
 
-        $amount = $userBalanceResult - (.33 * $betResult);
-        $secondPickLost = "update users set balance = '$amount' where screenname = '$userResult'";
-        $success = $db2->query($secondPickLost);
-        echo "\n" . "your choice " . $final2 . " did not win<br><br>";
-        break;
-    }
 }
 
-foreach($rows as $value){
-//third pick won
+foreach($rows as $value)
+{
 $i++;
-if($value[$i] == $final3)
+
+if($value[0] == $final3)
     {
         $getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
         $userBalanceQuery = mysqli_query($db2, $getUserBalance);
         $userBalanceResult = $userBalanceQuery->fetch_object()->var;
-
-        $amount = (.33 * $betResult) + $userBalanceResult;
-        $thirdBetWon = "update users set balance = '$amount' where screenname = '$userResult'";
-        $success = $db2->query($thirdBetWon);
-
-        echo "\n" . "your choice " . $final3 . " won<br><br>";
-        break;
-
+	array_push($winners, $final3);        
     }
-    //third pick lost
-if($value[$i] != $final3)
-    {
-        $getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
+
+}
+
+if(count($winners) == 0){
+	$getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
         $userBalanceQuery = mysqli_query($db2, $getUserBalance);
         $userBalanceResult = $userBalanceQuery->fetch_object()->var;
 
-        $amount = $userBalanceResult - (.33 * $betResult);
-        $thirdPickLost = "update users set balance = '$amount' where screenname = '$userResult'";
-        $success = $db2->query($thirdPickLost);
-        
-        echo "\n" . "your choice " . $final3 . " did not win<br><br>";
-        break;
-    }
-    }
-    */
+	echo "Sorry, none of your picks won this week, your balance has been adjusted.";
+	$amount = $userBalanceResult - ($betResult);
+        $firstPickLost = "update users set balance = '$amount' where screenname = '$userResult'";
+	$success = $db2->query($firstPickLost);
+
+}
+
+if(count($winners) == 1){
+	$getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
+        $userBalanceQuery = mysqli_query($db2, $getUserBalance);
+        $userBalanceResult = $userBalanceQuery->fetch_object()->var;
+
+	echo "One of your picks won this week, your balance has been adjusted.";
+	$amount = $userBalanceResult + (.33 * $betResult);
+        $firstPickLost = "update users set balance = '$amount' where screenname = '$userResult'";
+	$success = $db2->query($firstPickLost);
+
+}
+
+if(count($winners) == 2){
+	$getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
+        $userBalanceQuery = mysqli_query($db2, $getUserBalance);
+        $userBalanceResult = $userBalanceQuery->fetch_object()->var;
+
+	echo "Two of your picks won this week, your balance has been adjusted.";
+	$amount = $userBalanceResult + (.66 * $betResult);
+        $firstPickLost = "update users set balance = '$amount' where screenname = '$userResult'";
+	$success = $db2->query($firstPickLost);
+
+}
+
+if(count($winners) == 3){
+	$getUserBalance = "SELECT balance AS var FROM users WHERE screenname = '$userResult'";
+        $userBalanceQuery = mysqli_query($db2, $getUserBalance);
+        $userBalanceResult = $userBalanceQuery->fetch_object()->var;
+
+	echo "All of your picks won this week, your balance has been adjusted.";
+	$amount = $userBalanceResult + ($betResult);
+        $firstPickLost = "update users set balance = '$amount' where screenname = '$userResult'";
+	$success = $db2->query($firstPickLost);
+
+}
+
+
+print_r($winners);
+
+echo count($winners);
+    
+    
 return $rows;
 
 $db2->close();
